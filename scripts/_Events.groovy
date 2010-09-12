@@ -165,7 +165,8 @@ compileSASS = {
   // determine if compass is installed
   def gemPath = userHome.getCanonicalPath() + /\.gem\jruby\1.8\gems/
   def foundCompass = false
-  new File(gemPath).eachDir { dir -> if(dir.getName().startsWith('chriseppstein-compass')) foundCompass = true }
+  if (new File(gemPath).exists())
+    new File(gemPath).eachDir { dir -> if(dir.getName().startsWith('chriseppstein-compass')) foundCompass = true }
 
   // compass installed so do checks and run it if needed
   if(foundCompass) {
