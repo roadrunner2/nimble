@@ -16,7 +16,6 @@
 */
 
 import grails.util.GrailsUtil
-import org.apache.catalina.loader.WebappLoader
 import org.codehaus.groovy.grails.plugins.GrailsPluginUtils
 
 includeTargets << grailsScript("_GrailsArgParsing")
@@ -37,7 +36,7 @@ createVirtualDirectory = { tomcat,name,path ->
       println "Creating virtual directory of " + aliasName + " pointed to " + webroot
       context = tomcat.addWebapp(aliasName, webroot);
       context.reloadable = true
-      WebappLoader loader = new WebappLoader(tomcat.class.classLoader)
+      def loader = org.apache.catalina.loader.WebappLoader.newInstance(tomcat.class.classLoader)
       loader.addRepository(new File(buildroot).toURI().toURL().toString());
       context.loader = loader
       loader.container = context
